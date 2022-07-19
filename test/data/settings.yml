@@ -1,0 +1,29 @@
+default:
+  empty: ''
+  server: sandbox.configo.com
+  debug: true
+  port: 3000
+  version: 0.1
+  envs:
+    - local
+    - dev
+    - dev.sandbox
+    - prod
+  payload: '{}'
+  YOLO: |
+    You only live once
+local:
+  server: localhost
+  payload: '{"local": "FOO", "BAR": "local"}'
+dev:
+  server: dev.configo.com
+  payload: '{"dev": "FOO", "BAR": "dev"}'
+dev.sandbox:
+  server: dev.configo.com
+  payload: '{"dev.sandbox": "FOO", "BAR": "dev.sandbox"}'
+prd:
+  server: configo.com
+  DEBUG: false
+  PORT: 80
+  PAYLOAD: '{"prd": "FOO", "BAR": "prd"}'
+  ONLY_PRD: true

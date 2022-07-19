@@ -1,0 +1,28 @@
+[default]
+empty = ""
+server = 'sandbox.configo.com'
+debug = true
+port = 3000
+version = 0.1
+envs = ["local", "dev", "dev.sandbox", "prod"] 
+index = '{}'
+YOLO = "You only live once\n"
+
+[local]
+server = "localhost" 
+index = '{"env": "local", "msg": "Hi from local"}'
+
+[dev]
+server = "dev.configo.com"
+index =  '{"env": "dev", "msg": "Hi from dev"}'
+
+[dev.sandbox]
+server = "dev.configo.com"
+index =  '{"env": "dev.sandbox", "msg": "Hi from sandbox"}'
+
+[prd]
+server = "configo.com"
+debug = false
+port = 80
+index = '{"env": "prd", "msg": "Hello from Production"}'
+only_prod = true
