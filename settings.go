@@ -49,6 +49,11 @@ func (s *Settings) Load(path string, env string) error {
 }
 
 func (s *Settings) Get(key string) string {
+	fromEnv, found := os.LookupEnv(strings.ToUpper(key))
+	if found {
+		return fromEnv
+
+	}
 	if value, found := s.config[strings.ToUpper(key)]; found {
 		return value
 	}

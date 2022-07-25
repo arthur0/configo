@@ -47,7 +47,7 @@ func main() {
 // output: ["local"  "dev"  "dev.sandbox"  "prod"]
 ```
 
-# Complete Example
+## Complete Example
 
 ```go
 func main() {
@@ -72,4 +72,28 @@ func main() {
 	// version:0.1 debug mode: false
 
 	// Hello from Production
+```
+
+## Override settings by os Env
+
+You can override any settings by exporting it in the host 
+
+`export YOLO="YOLO means You only live once"`
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/arthur0/configo"
+)
+	
+func main() {
+	cfg := Settings{}
+	cfg.Load("test/data/settings.toml", "default")
+	yolo := cfg.Get("YOLO")
+	fmt.Println(yolo)
+}
+// output: YOLO means You only live once
 ```
