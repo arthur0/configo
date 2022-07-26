@@ -25,18 +25,17 @@ type Settings struct {
 
 func (s *Settings) Load(path string, env string) error {
 	var configLoader loader.ConfigLoader
-	var settingsErr error
 	extension := filepath.Ext(path)
 	switch extension {
 	case ".toml":
 		configLoader = &loader.TOMLloader{}
 	default:
-		settingsErr = fmt.Errorf(ErrUnsupportedExtensionMsg, loader.AllowedExtensions)
+		return fmt.Errorf(ErrUnsupportedExtensionMsg, loader.AllowedExtensions)
 	}
 
-	file, err := os.Open(path)
-	if err != nil {
-		log.Fatal(err)
+	file, ioErr := os.Open(path)
+	if ioErr != nil {
+		return fmt.Errorf(ErrIOMsg, ioErr)
 	}
 	defer file.Close()
 
@@ -45,7 +44,7 @@ func (s *Settings) Load(path string, env string) error {
 	for key, value := range loaderConfig[env] {
 		s.config[key] = value
 	}
-	return settingsErr
+	return nil
 }
 
 func (s *Settings) Get(key string) string {
@@ -57,7 +56,7 @@ func (s *Settings) Get(key string) string {
 	if value, found := s.config[strings.ToUpper(key)]; found {
 		return value
 	}
-	log.Fatalf(ErrKeyNotFoundMsg, key)
+	log.Printf(ErrKeyNotFoundMsg, key)
 	return ""
 }
 
