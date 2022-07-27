@@ -27,6 +27,8 @@ func (s *Settings) Load(path string, env string) error {
 	var configLoader loader.ConfigLoader
 	extension := filepath.Ext(path)
 	switch extension {
+	case "": // No extension assumes TOML
+		configLoader = &loader.TOMLloader{}
 	case ".toml":
 		configLoader = &loader.TOMLloader{}
 	default:
